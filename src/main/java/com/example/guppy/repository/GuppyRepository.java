@@ -68,4 +68,18 @@ public interface GuppyRepository extends JpaRepository<Guppy, Integer> {
     @Transactional
     @Query(value = "SELECT id, name, image, price, sale, status, _describe FROM guppy  WHERE name LIKE %:name%",  nativeQuery = true)
     List<Guppy> adminGetAllGuppy(@Param("name") String name);
+
+    //query select guppy detail
+   @Query(value = "SELECT id_image FROM guppy_detail WHERE id_guppy = :id", nativeQuery = true)
+    List<Integer> getGuppyDetailImages(@Param("id") int id);
+    @Query(value = "SELECT id_video FROM guppy_detail WHERE id_guppy = :id", nativeQuery = true)
+    List<Integer> getGuppyDetailVideos(@Param("id") int id);
+    @Query(value = "Select quantity from guppy_quantity WHERE id_guppy = :id", nativeQuery = true)
+    int getQuantityGuppy(@Param("id") int id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE guppy_quantity SET quantity = :quantity WHERE id_guppy = :id", nativeQuery = true)
+    int updateQuantity(@Param("quantity") int quantity, @Param("id") int id);
+
 }

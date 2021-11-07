@@ -22,10 +22,5 @@ public class AdminController {
     @Autowired
     VideoService videoService;
 
-    @PostMapping(path = "/admin/guppy-info")
-    public List<Guppy> adminGetListGuppy(@RequestBody String name) {
-        System.out.println(name);
-        if(name.equals("...")) return guppyService.selectAllGuppy();
-        return guppyService.adminGetAllGuppy(name);
-    }
+
 }

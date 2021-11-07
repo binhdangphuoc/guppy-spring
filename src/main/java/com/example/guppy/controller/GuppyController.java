@@ -2,6 +2,7 @@ package com.example.guppy.controller;
 
 import com.example.guppy.entity.Guppy;
 import com.example.guppy.entity.GuppyAddDetail;
+import com.example.guppy.entity.GuppyDetail;
 import com.example.guppy.helper.Helper;
 import com.example.guppy.service.GuppyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +50,11 @@ public class GuppyController {
         return guppyService.insertGuppy(vMax, names, images, prices, _describes);
     }
 
-    @GetMapping("/guppy/{id}")
-    public Guppy selectGuppyById(@PathVariable("id") int id) {
-        System.out.println("select a guppy by id = " + id);
-        return guppyService.selectGuppyById(id);
-    }
+//    @GetMapping("/guppy/{id}")
+//    public Guppy selectGuppyById(@PathVariable("id") int id) {
+//        System.out.println("select a guppy by id = " + id);
+//        return guppyService.selectGuppyById(id);
+//    }
 
     @GetMapping("/guppy")
     public List<Guppy> selectAllGuppy() {
@@ -67,10 +68,10 @@ public class GuppyController {
         return guppyService.deleteGuppyById(id);
     }
 
-    @PutMapping("/admin/guppy/{id}")
-    public int updateGuppy(@PathVariable("id") int id, @RequestBody Guppy guppyUpdate) {
-        System.out.println("update a guppy id = " + id);
-        if(id != guppyUpdate.getId()) return 0;
+    @PutMapping("/admin/guppy")
+    public int updateGuppy(@RequestBody Guppy guppyUpdate) {
+        System.out.println("update a guppy id " + guppyUpdate.getName());
+
         return guppyService.updateGuppy(guppyUpdate);
     }
 
@@ -82,15 +83,23 @@ public class GuppyController {
         String listOfVideos = Helper.IntToString(detail.listVideos);
         return guppyService.insertGuppyDetail(detail.vMax, listOfGuppy, listOfImages, listOfVideos);
     }
+    @PostMapping(path = "/admin/guppy-info")
+    public List<Guppy> adminGetListGuppy(@RequestBody String name) {
+        System.out.println(name);
+        if(name.equals("...")) return guppyService.selectAllGuppy();
+        return guppyService.adminGetAllGuppy(name);
+    }
 
-//    @GetMapping("/home-hot-sale")
-//    public List<Guppy> homepageHotSale() {
-//        System.out.println("select sale guppy");
-//        return guppyService.homepageHotSale();
-//    }
-//    @GetMapping("/home-hot-guppy")
-//    public List<Guppy> homepageHotGuppy() {
-//        System.out.println("select hot guppy");
-//        return guppyService.homepageHotGuppy();
-//    }
+    @GetMapping(path = "/guppy/{id}")
+    public GuppyDetail getGuppyDetail(@PathVariable("id") int id) {
+        System.out.println(("get detail guppy id= " + id));
+        return guppyService.getGuppyDetail(id);
+    }
+
+    @PostMapping(path = "admin/guppy/{id}/quantity")
+    public int updateQuantity(@PathVariable("id") int id, @RequestBody int quantity) {
+        System.out.println("update quantity: " + id + quantity);
+        return guppyService.updateQuantity(quantity, id);
+    }
+
 }

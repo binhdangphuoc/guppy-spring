@@ -1,51 +1,52 @@
 package com.example.guppy.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuppyDetail {
 
-    private int id;
-    private List<String> images;
-    private List<String> video;
+    private Guppy guppy;
+    private List<Image> images;
+    private List<Video> videos;
     private int quantity;
 
     public GuppyDetail(){};
-    public GuppyDetail(int id, List<String> images, List<String> video, int quantity) {
-        this.id = id;
+    public GuppyDetail(Guppy guppy, List<Image> images, List<Video> video, int quantity) {
+        this.guppy = guppy;
         this.images = images;
-        this.video = video;
+        this.videos = video;
         this.quantity = quantity;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 
-    public void setVideo(List<String> video) {
-        this.video = video;
-    }
-
-    public List<String> getImages() {
+    public List<Image> getImages() {
         return images;
-    }
-
-    public List<String> getVideo() {
-        return video;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Guppy getGuppy() {
+        return guppy;
+    }
+
+    public List<Video> getVideos() {
+        return videos;
+    }
+
+    public void setGuppy(Guppy guppy) {
+        this.guppy = guppy;
+    }
+
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
     }
 }
